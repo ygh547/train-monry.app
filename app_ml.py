@@ -13,7 +13,7 @@ def run_ml():
     # 이 예에서는, 인공지능파일, X 스케일러 파일, y 스케일러파일
     # 3개를 불러와야 한다.
 
-    regressor = joblib.load('data/Mon_classifier2.pkl')
+    regressor = joblib.load('data/Mon_regressor.pkl')
     scaler_X = joblib.load('data/Mon_scaler_X.pkl')
     scaler_y =joblib.load('data/Mon_scaler_y.pkl')
 
@@ -74,7 +74,7 @@ def run_ml():
     if Loan_Status == '없다' :
         Loan_Status = 1
     else :
-        Loan_Status = 0
+        Loan_Status = 0 
 
     if st.button('대출금액 예측') : 
         new_data = np.array([Gender,Married,Dependents ,Education ,Self_Employed ,ApplicantIncome ,CoapplicantIncome ,LoanAmount ,Loan_Amount_Term ,
@@ -83,7 +83,7 @@ def run_ml():
         new_data = new_data.reshape(1, 11)
         new_data = scaler_X.transform(new_data)
         y_pred = regressor.predict(new_data)
-        y_pred = scaler_y.inverse_transform(y_pred)
+        # y_pred = scaler_y.inverse_transform(y_pred)
 
         y_pred = [Gender + Married + Dependents + Education  + Self_Employed  + ApplicantIncome  + CoapplicantIncome  + LoanAmount  + 
         Loan_Amount_Term + Credit_History  + Property_Area]
