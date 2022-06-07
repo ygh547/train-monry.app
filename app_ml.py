@@ -80,16 +80,11 @@ def run_ml():
         Property_Area = 1
     else :
         Property_Area = 0
-    Loan_Status = st.radio('타 은행에서 대출받은게 있으신가여?',['있다','없다'])
-    if Loan_Status == '없다' :
-        Loan_Status = 1
-    else :
-        Loan_Status = 0 
 
     if st.button('대출금액 예측') : 
         # 1. 신규 고객의 정보를 넘파이 어레이로 만들어준다.
-        new_data = np.array([Gender,Married,Dependents ,Education ,Self_Employed ,ApplicantIncome ,CoapplicantIncome ,LoanAmount ,Loan_Amount_Term ,
-        Credit_History ,Property_Area ])
+        new_data = np.array([Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,
+        Credit_History,Property_Area])
         # 2. 학습할때 사용한 X 의 피처 스케일러를 이용해서, 피처스케일링하기
         # 먼저, 데이터를 2차원으로 만들어준다.
 
@@ -100,6 +95,8 @@ def run_ml():
         # 4. 예측한 값을, 원상복구 시킨다.
         y_pred = scaler_y.inverse_transform(y_pred)
 
+        # y_pred = [Gender + Married + Dependents + Education  + Self_Employed  + ApplicantIncome  + CoapplicantIncome  + LoanAmount  + Loan_Amount_Term 
+        #  + Credit_History  + Property_Area]
         y_pred = round(y_pred[0,0])
         st.write('대출 가능 금액은'+ str(y_pred) + '달러입니다.')
 
